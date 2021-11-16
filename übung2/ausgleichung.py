@@ -75,3 +75,12 @@ if __name__ == '__main__':
         a_matrix[i][int(e[2])] = -1
     if(verbose):
         print(f"a_matrix:\n{a_matrix}\n")
+
+    # Berechnung der Redundanz
+    redundanz = len(l_vektor)-len(x_vektor)
+    if(verbose):
+        print(f"redundanz:\n{redundanz}\n")
+
+    x_vektor_berechnet = np.linalg.inv(np.transpose(a_matrix)@a_matrix)@np.transpose(a_matrix)@l_vektor
+    if(verbose):
+        print(f"x_vektor_berechnet:\n{x_vektor_berechnet}\n")
