@@ -38,11 +38,18 @@ verbose = False  # Shows more debugging information
 
 if __name__ == '__main__':
     
+    # Import der x-Vektor Punktbeschreibung
+    file = open(os.path.join("data","punktnummern.txt"))
+    data = file.readlines()
+    file.close()
+    for i, e in enumerate(data):
+        data[i] = e.strip()
+    
     # Aufstellen des x-Vektors
-    x_vektor = np.array([["h2"],
-                         ["h3"],
-                         ["h4"],
-                         ["h6"]])
+    x_vektor = []
+    for i in data:
+        x_vektor.append([i])
+    x_vektor = np.array(x_vektor)
 
     # Aufstellen des Beobachtungsvektors
     l_vektor = np.array([[h_12],
