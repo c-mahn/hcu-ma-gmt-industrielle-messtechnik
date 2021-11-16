@@ -70,9 +70,8 @@ if __name__ == '__main__':
 
     # Aufstellen der A-Matrix
     a_matrix = np.zeros([len(l_vektor), len(x_vektor)])
-    a_matrix[0][0] = 1
+    for i, e in enumerate(data):
+        a_matrix[i][int(e[1])] = 1
+        a_matrix[i][int(e[2])] = -1
     if(verbose):
         print(f"a_matrix:\n{a_matrix}\n")
-    
-    
-    
