@@ -42,7 +42,7 @@ if __name__ == '__main__':
     x_vektor = np.array([["h2"],
                          ["h3"],
                          ["h4"],
-                         ["h5"]])
+                         ["h6"]])
 
     # Aufstellen des Beobachtungsvektors
     l_vektor = np.array([[h_12],
