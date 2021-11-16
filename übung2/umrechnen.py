@@ -45,7 +45,7 @@ if __name__ == '__main__':
     for i, e in enumerate(data):
         data[i] = e.strip().split(";")
 
-    # 
+    # Erstellung der Vektoren
     x_werte = []
     for i in data:
         x_werte.append([float(i[0])])
