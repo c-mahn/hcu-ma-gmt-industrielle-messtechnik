@@ -15,6 +15,7 @@
 # import math as m
 # import string as st
 # import random as r
+import numpy as np
 
 
 # Functions
