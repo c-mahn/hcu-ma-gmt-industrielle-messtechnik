@@ -87,6 +87,13 @@ if __name__ == '__main__':
         print(f"x_vektor_berechnet:\n{x_vektor_berechnet}\n")
     
     # Normalisieren des x-Vektors
-    average = np.mean(x_vektor_berechnet[0:48])
-    x_vektor_normalisiert = x_vektor_berechnet[0:48] - average
+    average = np.mean(x_vektor_berechnet[0:49])
+    x_vektor_normalisiert = x_vektor_berechnet[0:49] - average
     print(x_vektor_normalisiert)
+
+    # Export
+    file = open(os.path.join("data","export.txt"),f"w")
+    for i in x_vektor_normalisiert:
+        i = float(i[0])
+        file.writelines(f"{i:+.6f}\n")
+    file.close()
