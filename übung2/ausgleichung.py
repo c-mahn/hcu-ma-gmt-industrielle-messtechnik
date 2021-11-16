@@ -72,7 +72,8 @@ if __name__ == '__main__':
     a_matrix = np.zeros([len(l_vektor), len(x_vektor)])
     for i, e in enumerate(data):
         a_matrix[i][int(e[1])] = 1
-        a_matrix[i][int(e[2])] = -1
+        if(int(e[2]) != -1):
+            a_matrix[i][int(e[2])] = -1
     if(verbose):
         print(f"a_matrix:\n{a_matrix}\n")
 
