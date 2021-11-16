@@ -1,4 +1,4 @@
-# Standardabweichungen
+# Abweichungen vom Mittel
 # #############################################################################
 
 # Authors:
@@ -38,14 +38,14 @@ verbose = True  # Shows more debugging information
 
 if __name__ == '__main__':
  
-    # Import der Ausgeglichenen Höhen
-    file = open(os.path.join("data","export_dini.txt"))
+    # Import der Ausgeglichenen Höhen einer Messreihe
+    file = open(os.path.join("data","export_nivel2.txt"))
     data = file.readlines()
     file.close()
     for i, e in enumerate(data):
         data[i] = e.strip().split(";")
 
-    # 
+    # Erstellung der Vektoren
     a_werte = []
     for i in data:
         a_werte.append([float(i[0])])
@@ -53,13 +53,13 @@ if __name__ == '__main__':
     if(verbose):
         print(f"a_werte:\n{a_werte}\n")
 
-    # Import der Ausgeglichenen Höhen All
+    # Import der Ausgeglichenen Höhen aller Messreihen
     file = open(os.path.join("data","export_all.txt"))
     data = file.readlines()
     file.close()
     for i, e in enumerate(data):
         data[i] = e.strip().split(";")
-    # 
+    # Erstellung der Vektoren
     b_werte = []
     for i in data:
         b_werte.append([float(i[0])])
@@ -70,6 +70,13 @@ if __name__ == '__main__':
     abw = []
     for i in range(49):
         wert = b_werte[i] - a_werte[i]
-        abw.append(float(i))
+        abw.append(wert)
         print(f"Abweichung:\n{wert}\n")
-    
+    abw = np.array(abw)
+
+    # Export
+    file = open(os.path.join("data","exportabw.txt"),f"w")
+    for i in abw:
+        i = float(i)
+        file.writelines(f"{i:+.6f}\n")
+    file.close()
