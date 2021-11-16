@@ -66,14 +66,14 @@ if __name__ == '__main__':
         if i % 7 == 6:
             continue
         else:
-            wert = np.sin(y_werte[i]/1000)*0.15
+            wert = np.sin(y_werte[i]/1000)*0.15             # Erst X
             h_vektor.append([float(wert)])
 
     for i in range(49):
         if i % 7 == 6:
             continue
         else:
-            wert = np.sin(x_werte[i]/1000)*0.15
+            wert = np.sin(x_werte[i]/1000)*0.15             # Dann Y !!!
             h_vektor.append([float(wert)])
     h_vektor = np.array(h_vektor)
     if(verbose):
