@@ -85,3 +85,8 @@ if __name__ == '__main__':
     x_vektor_berechnet = np.linalg.inv(np.transpose(a_matrix)@a_matrix)@np.transpose(a_matrix)@l_vektor
     if(verbose):
         print(f"x_vektor_berechnet:\n{x_vektor_berechnet}\n")
+    
+    # Normalisieren des x-Vektors
+    average = np.mean(x_vektor_berechnet[0:48])
+    x_vektor_normalisiert = x_vektor_berechnet[0:48] - average
+    print(x_vektor_normalisiert)
