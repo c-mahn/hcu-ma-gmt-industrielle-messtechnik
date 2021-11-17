@@ -39,7 +39,7 @@ verbose = True  # Shows more debugging information
 if __name__ == '__main__':
  
     # Import der Ausgeglichenen Höhen einer Messreihe
-    file = open(os.path.join("data","export_nivel2.txt"))
+    file = open(os.path.join("data","export_nivel_2.txt"))
     data = file.readlines()
     file.close()
     for i, e in enumerate(data):

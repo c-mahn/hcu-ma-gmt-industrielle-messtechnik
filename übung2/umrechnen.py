@@ -60,28 +60,28 @@ if __name__ == '__main__':
     if(verbose):
         print(f"y_werte:\n{y_werte}\n")
     
-    # Berechnung der Höhen der Punkte
-    h_vektor = []
+    # Berechnung der Höhenunterschiede
+    deltah_vektor = []
     for i in range(49):
         if i % 7 == 6:
             continue
         else:
-            wert = np.sin(y_werte[i]/1000)*0.15             # Erst X
-            h_vektor.append([float(wert)])
+            wert = np.sin(x_werte[i]/1000)*0.15
+            deltah_vektor.append([float(wert)])
 
     for i in range(49):
         if i % 7 == 6:
             continue
         else:
-            wert = np.sin(x_werte[i]/1000)*0.15             # Dann Y !!!
-            h_vektor.append([float(wert)])
-    h_vektor = np.array(h_vektor)
+            wert = np.sin(y_werte[i]/1000)*0.15
+            deltah_vektor.append([float(wert)])
+    deltah_vektor = np.array(deltah_vektor)
     if(verbose):
-        print(f"h_vektor:\n{h_vektor}\n")
+        print(f"h_vektor:\n{deltah_vektor}\n")
 
     # Export
     file = open(os.path.join("data","exportneig.txt"),f"w")
-    for i in h_vektor:
+    for i in deltah_vektor:
         i = float(i[0])
         file.writelines(f"{i:+.8f}\n")
     file.close()
