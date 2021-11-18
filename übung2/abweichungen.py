@@ -28,18 +28,17 @@ verbose = True  # Shows more debugging information
 # Functions
 # -----------------------------------------------------------------------------
 
+def berechne_abweichung(input_file, output_file):
+    """
+    Berechnet die Abweichung.
 
-# Classes
-# -----------------------------------------------------------------------------
-
-
-# Beginning of the Programm
-# -----------------------------------------------------------------------------
-
-if __name__ == '__main__':
+    Args:
+        input_file ([string]): [Nane der Input-Datei]
+        output_file ([string]): [Name der Putput-Datei]
+    """
  
     # Import der Ausgeglichenen Höhen einer Messreihe
-    file = open(os.path.join("data","export_nivel_2.txt"))
+    file = open(os.path.join("data",input_file))
     data = file.readlines()
     file.close()
     for i, e in enumerate(data):
@@ -75,8 +74,21 @@ if __name__ == '__main__':
     abw = np.array(abw)
 
     # Export
-    file = open(os.path.join("data","exportabw.txt"),f"w")
+    file = open(os.path.join("data",output_file), "w")
     for i in abw:
         i = float(i)
         file.writelines(f"{i:+.6f}\n")
     file.close()
+
+# Classes
+# -----------------------------------------------------------------------------
+
+
+# Beginning of the Programm
+# -----------------------------------------------------------------------------
+
+if __name__ == '__main__':
+    berechne_abweichung("export_nivel_1.txt", "exportabw_nivel_1.txt")
+    berechne_abweichung("export_nivel_2.txt", "exportabw_nivel_2.txt")
+    berechne_abweichung("export_dini.txt", "exportabw_dini.txt")
+    berechne_abweichung("export_ts16.txt", "exportabw_ts16.txt")
