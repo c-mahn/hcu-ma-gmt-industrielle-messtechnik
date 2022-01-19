@@ -42,18 +42,30 @@ if __name__ == '__main__':
     file = open(os.path.join("data","imu_data.txt"))
     data = file.readlines()
     file.close()
+    
+    # Select active lines
+    data_split = []
     for i, e in enumerate(data):
         if(e[0] != "#"):
-            data[i] = e.strip().split(" ")
+            data_split.append(e.strip().split(" "))
+    
 
     # Convert strings to numbers
     markers = []
-    for i in data:
+    for i in data_split:
         if(i[0] != "0000"):
             markers.append(i)
+
+    # Compile Lines
+    r''' aw_markers = []
+    for i in markers:
+        for j, e in enumerate i:
+            pass
+        pass '''
+            
 
     # Export
     file = open(os.path.join("data","imu_data_converted.txt"),f"w")
     for i in markers:
-        file.writelines(f"i\n")
+        file.writelines(f"{i}\n")
     file.close()
