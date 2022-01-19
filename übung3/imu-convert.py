@@ -82,7 +82,10 @@ if __name__ == '__main__':
     # Export
     file = open(os.path.join("data","imu_data_converted.txt"),f"w")
     for i in markers:
-        for j in i:
-            file.writelines(f"{j}; ")
-        file.writelines(f"\b\b\n")
+        for j, e in enumerate(i):
+            if(j == 0):
+                file.writelines(f"{e}")
+            else:
+                file.writelines(f"; {e}")
+        file.writelines(f"\n")
     file.close()

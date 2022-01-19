@@ -43,14 +43,26 @@ if __name__ == '__main__':
     imu_data = file.readlines()
     file.close()
     for i, e in enumerate(imu_data):
-        imu_data[i] = e.strip(";")
+        imu_data[i] = e.strip().split(";")
+        temp = []
+        for j in imu_data[i]:
+            temp.append(float(j))
+        imu_data[i] = temp
 
     # Import der Messwerte des Tachymeters
     file = open(os.path.join("data","messwerte_ts60.csv"))
     totalstation_data = file.readlines()
     file.close()
+    totalstation_data.pop(0)
     for i, e in enumerate(totalstation_data):
-        totalstation_data[i] = e.strip(";")
+        totalstation_data[i] = e.strip().split(";")
+        temp = []
+        for j, f in enumerate(totalstation_data[i]):
+            if(j != 1):
+                temp.append(float(f))
+            else:
+                temp.append(f)
+        totalstation_data[i] = temp
 
-    print(imu_data)
-    print(totalstation_data)
+    for i in imu_data:
+        print(f"{i[8]}, {i[9]}, {i[10]}")
