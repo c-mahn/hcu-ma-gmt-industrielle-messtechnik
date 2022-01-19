@@ -48,21 +48,25 @@ if __name__ == '__main__':
     for i, e in enumerate(data):
         if(e[0] != "#"):
             data_split.append(e.strip().split(" "))
-    
 
-    # Convert strings to numbers
+    # Select only marked lines
     markers = []
     for i in data_split:
         if(i[0] != "0000"):
             markers.append(i)
 
-    # Compile Lines
-    r''' aw_markers = []
-    for i in markers:
-        for j, e in enumerate i:
-            pass
-        pass '''
-            
+    # Convert lines in float-lists
+    raw_markers = []
+    for i, e in enumerate(markers):
+        raw_markers.append([])
+        for j in e:
+            if(j != ""):  # Skip empty strings
+                raw_markers[i].append(float(j))
+        print(raw_markers[i])
+
+    # Convert units
+    
+    
 
     # Export
     file = open(os.path.join("data","imu_data_converted.txt"),f"w")
