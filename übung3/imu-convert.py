@@ -43,12 +43,17 @@ if __name__ == '__main__':
     data = file.readlines()
     file.close()
     for i, e in enumerate(data):
-        data[i] = e.strip().split(" ")
+        if(e[0] != "#"):
+            data[i] = e.strip().split(" ")
 
-
+    # Convert strings to numbers
+    markers = []
+    for i in data:
+        if(i[0] != "0000"):
+            markers.append(i)
 
     # Export
     file = open(os.path.join("data","imu_data_converted.txt"),f"w")
-    for i in 5:
-        file.writelines(f"hello\n")
+    for i in markers:
+        file.writelines(f"i\n")
     file.close()
