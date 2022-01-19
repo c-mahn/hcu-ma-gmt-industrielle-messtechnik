@@ -37,10 +37,20 @@ verbose = True  # Shows more debugging information
 # -----------------------------------------------------------------------------
 
 if __name__ == '__main__':
-
+    
     # Import der Messwerte des Neigungssensors
     file = open(os.path.join("data","imu_data_converted.txt"))
-    data = file.readlines()
+    imu_data = file.readlines()
     file.close()
-    for i, e in enumerate(data):
-        data[i] = e.strip()
+    for i, e in enumerate(imu_data):
+        imu_data[i] = e.strip(";")
+
+    # Import der Messwerte des Tachymeters
+    file = open(os.path.join("data","messwerte_ts60.csv"))
+    totalstation_data = file.readlines()
+    file.close()
+    for i, e in enumerate(totalstation_data):
+        totalstation_data[i] = e.strip(";")
+
+    print(imu_data)
+    print(totalstation_data)
