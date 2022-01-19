@@ -1,0 +1,6 @@
+
+rhograd = 180/np.pi()
+rhogon =  200/np.pi()
+
+# K to C
+tempK - 273.15 = tempC
