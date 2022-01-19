@@ -38,7 +38,7 @@ verbose = True  # Shows more debugging information
 
 if __name__ == '__main__':
 
-    # Import der IMU-Messdaten
+    # Import der Messwerte des Neigungssensors
     file = open(os.path.join("data","imu_data_converted.txt"))
     data = file.readlines()
     file.close()
