@@ -1,4 +1,4 @@
-# Umrechnen von mrad in m
+# Parsen und konvertieren von IMU-Daten
 # #############################################################################
 
 # Authors:
