@@ -63,5 +63,29 @@ if __name__ == '__main__':
                 temp.append(f)
         totalstation_data[i] = temp
 
-    for i in imu_data[0:3]:
-        print(f"{i[8]}, {i[9]}, {i[10]}")
+    # Berechnung der Orientierung der IMU
+    pos1IMU = []
+    pos1IMU.append(np.average([imu_data[0][8], imu_data[1][8], imu_data[2][8]]))
+    pos1IMU.append(np.average([imu_data[0][9], imu_data[1][9], imu_data[2][9]]))
+    pos1IMU.append(np.average([imu_data[0][10], imu_data[1][10], imu_data[2][10]]))
+
+    pos2IMU = []
+    pos2IMU.append(np.average([imu_data[7][8], imu_data[8][8], imu_data[9][8]]))
+    pos2IMU.append(np.average([imu_data[7][9], imu_data[8][9], imu_data[9][9]]))
+    pos2IMU.append(np.average([imu_data[7][10], imu_data[8][10], imu_data[9][10]]))
+
+    meas_imu1 = []
+    meas_imu1.append(np.average([totalstation_data[1][3],totalstation_data[3][3],totalstation_data[5][3]]))
+    meas_imu1.append(np.average([totalstation_data[1][4],totalstation_data[3][4],totalstation_data[5][4]]))
+
+    meas_imu2 = []
+    meas_imu2.append(np.average([totalstation_data[7][3],totalstation_data[9][3],totalstation_data[11][3]]))
+    meas_imu2.append(np.average([totalstation_data[7][4],totalstation_data[9][4],totalstation_data[1][4]]))
+
+
+
+
+
+    pos1totalstation = []
+
+    print(pos1IMU, pos2IMU, meas_imu1, meas_imu2)
