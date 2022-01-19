@@ -15,6 +15,7 @@
 # import math as m
 # import string as st
 # import random as r
+from re import M
 import numpy as np
 import os
 
@@ -64,28 +65,50 @@ if __name__ == '__main__':
         totalstation_data[i] = temp
 
     # Berechnung der Orientierung der IMU
-    pos1IMU = []
-    pos1IMU.append(np.average([imu_data[0][8], imu_data[1][8], imu_data[2][8]]))
-    pos1IMU.append(np.average([imu_data[0][9], imu_data[1][9], imu_data[2][9]]))
-    pos1IMU.append(np.average([imu_data[0][10], imu_data[1][10], imu_data[2][10]]))
+    ori1IMU = []
+    ori1IMU.append(np.average([imu_data[0][8], imu_data[1][8], imu_data[2][8]]))
+    ori1IMU.append(np.average([imu_data[0][9], imu_data[1][9], imu_data[2][9]]))
+    ori1IMU.append(np.average([imu_data[0][10], imu_data[1][10], imu_data[2][10]]))
 
-    pos2IMU = []
-    pos2IMU.append(np.average([imu_data[7][8], imu_data[8][8], imu_data[9][8]]))
-    pos2IMU.append(np.average([imu_data[7][9], imu_data[8][9], imu_data[9][9]]))
-    pos2IMU.append(np.average([imu_data[7][10], imu_data[8][10], imu_data[9][10]]))
+    ori2IMU = []
+    ori2IMU.append(np.average([imu_data[7][8], imu_data[8][8], imu_data[9][8]]))
+    ori2IMU.append(np.average([imu_data[7][9], imu_data[8][9], imu_data[9][9]]))
+    ori2IMU.append(np.average([imu_data[7][10], imu_data[8][10], imu_data[9][10]]))
 
-    meas_imu1 = []
-    meas_imu1.append(np.average([totalstation_data[1][3],totalstation_data[3][3],totalstation_data[5][3]]))
-    meas_imu1.append(np.average([totalstation_data[1][4],totalstation_data[3][4],totalstation_data[5][4]]))
+    avg_imu1 = []
+    avg_imu1.append(np.average([totalstation_data[1][3],totalstation_data[3][3],totalstation_data[5][3]]))
+    avg_imu1.append(np.average([totalstation_data[1][4],totalstation_data[3][4],totalstation_data[5][4]]))
 
-    meas_imu2 = []
-    meas_imu2.append(np.average([totalstation_data[7][3],totalstation_data[9][3],totalstation_data[11][3]]))
-    meas_imu2.append(np.average([totalstation_data[7][4],totalstation_data[9][4],totalstation_data[1][4]]))
+    avg_imu2 = []
+    avg_imu2.append(np.average([totalstation_data[7][3],totalstation_data[9][3],totalstation_data[11][3]]))
+    avg_imu2.append(np.average([totalstation_data[7][4],totalstation_data[9][4],totalstation_data[11][4]]))
 
+    avg_mirror1 = []
+    avg_mirror1.append(np.average([totalstation_data[0][3],totalstation_data[2][3],totalstation_data[4][3]]))
+    avg_mirror1.append(np.average([totalstation_data[0][4],totalstation_data[2][4],totalstation_data[4][4]]))
+    
+    avg_mirror2 = []
+    avg_mirror2.append(np.average([totalstation_data[6][3],totalstation_data[8][3],totalstation_data[10][3]]))
+    avg_mirror2.append(np.average([totalstation_data[6][4],totalstation_data[8][4],totalstation_data[10][4]]))
 
+    ori1mirror = []
+    ori1mirror.append(ori1IMU[0])                               # roll
+    ori1mirror.append((avg_imu1[1]-avg_mirror1[1])+ori1IMU[1])  # pitch
+    ori1mirror.append((avg_imu1[0]-avg_mirror1[0])+ori1IMU[2])  # yaw
 
+    ori2mirror = []
+    ori2mirror.append(ori2IMU[0])                               # roll
+    ori2mirror.append((avg_imu2[1]-avg_mirror2[1])+ori2IMU[1])  # pitch
+    ori2mirror.append((avg_imu2[0]-avg_mirror2[0])+ori2IMU[2])  # yaw
 
+    difference = []
+    difference.append(ori2mirror[0]-ori1mirror[0])
+    difference.append(ori2mirror[1]-ori1mirror[1])
+    difference.append(ori2mirror[2]-ori1mirror[2])
 
-    pos1totalstation = []
+    differencegon = []
+    differencegon.append(difference[0]*(200/np.pi))
+    differencegon.append(difference[1]*(200/np.pi))
+    differencegon.append(difference[2]*(200/np.pi))
 
-    print(pos1IMU, pos2IMU, meas_imu1, meas_imu2)
+print(differencegon)
