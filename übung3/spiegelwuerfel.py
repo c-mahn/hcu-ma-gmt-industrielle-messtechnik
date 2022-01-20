@@ -111,4 +111,13 @@ if __name__ == '__main__':
     differencegon.append(difference[1]*(200/np.pi))
     differencegon.append(difference[2]*(200/np.pi))
 
-print(differencegon)
+    print(differencegon)
+    
+    innenwinkel_imu = -(ori1IMU[2] - ori2IMU[2])
+    print(f"Innenwinkel (IMU): {(innenwinkel_imu/np.pi*200):.5f} gon")
+    drehung_totalstation1 = avg_mirror1[0] - avg_imu1[0]
+    print(f"Innenwinkel (Totalstation1): {(drehung_totalstation1/np.pi*200):.5f} gon")
+    drehung_totalstation2 = avg_imu2[0] - avg_mirror2[0]
+    print(f"Innenwinkel (Totalstation2): {(drehung_totalstation2/np.pi*200):.5f} gon")
+    innenwinkel = 2*np.pi - innenwinkel_imu - drehung_totalstation1 - drehung_totalstation2
+    print(f"Innenwinkel: {(innenwinkel/np.pi*200):.5f} gon")
