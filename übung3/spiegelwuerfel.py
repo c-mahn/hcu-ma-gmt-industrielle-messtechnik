@@ -112,7 +112,8 @@ if __name__ == '__main__':
     differencegon.append(difference[2]*(200/np.pi))
 
     print(differencegon)
-    
+
+    # Berechnungskontrolle
     innenwinkel_imu = -(ori1IMU[2] - ori2IMU[2])
     print(f"Innenwinkel (IMU): {(innenwinkel_imu/np.pi*200):.5f} gon")
     drehung_totalstation1 = avg_mirror1[0] - avg_imu1[0]
