@@ -1,0 +1,7 @@
+Reverse Engineering::0.5''_Ebene01::1,  483.195,  -517.499,  -53.884
+Reverse Engineering::0.5''_Ebene01::2,  474.105,  -526.000,  -53.811
+Reverse Engineering::0.5''_Ebene01::3,  492.733,  -537.671,  -53.882
+Reverse Engineering::0.5''_Ebene01::4,  471.779,  -553.413,  -53.824
+Reverse Engineering::0.5''_Ebene01::5,  446.701,  -541.859,  -53.714
+Reverse Engineering::0.5''_Ebene01::6,  439.126,  -523.796,  -53.612
+Reverse Engineering::0.5''_Ebene01::7,  445.541,  -498.042,  -53.915

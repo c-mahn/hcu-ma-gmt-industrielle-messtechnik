@@ -1,0 +1,9 @@
+Reverse Engineering::0.5''_Ebene02::1,  436.627,  -455.106,  -38.176
+Reverse Engineering::0.5''_Ebene02::2,  455.812,  -466.670,  -38.413
+Reverse Engineering::0.5''_Ebene02::3,  467.644,  -453.088,  -38.683
+Reverse Engineering::0.5''_Ebene02::4,  482.061,  -465.993,  -38.810
+Reverse Engineering::0.5''_Ebene02::5,  494.758,  -452.208,  -39.071
+Reverse Engineering::0.5''_Ebene02::6,  508.410,  -468.258,  -39.486
+Reverse Engineering::0.5''_Ebene02::7,  519.336,  -454.754,  -39.699
+Reverse Engineering::0.5''_Ebene02::8,  530.405,  -466.662,  -40.032
+Reverse Engineering::0.5''_Ebene02::9,  542.227,  -455.662,  -40.266

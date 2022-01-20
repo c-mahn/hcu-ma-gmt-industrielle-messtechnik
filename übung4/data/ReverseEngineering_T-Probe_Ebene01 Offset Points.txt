@@ -1,0 +1,8 @@
+Reverse Engineering::T-Probe_Ebene01::1,  455.868,  -514.219,  -53.890
+Reverse Engineering::T-Probe_Ebene01::2,  481.332,  -536.412,  -53.949
+Reverse Engineering::T-Probe_Ebene01::3,  504.065,  -508.713,  -54.056
+Reverse Engineering::T-Probe_Ebene01::4,  506.720,  -578.517,  -53.795
+Reverse Engineering::T-Probe_Ebene01::5,  464.589,  -568.660,  -53.712
+Reverse Engineering::T-Probe_Ebene01::6,  419.919,  -570.676,  -53.082
+Reverse Engineering::T-Probe_Ebene01::7,  411.729,  -606.327,  -52.859
+Reverse Engineering::T-Probe_Ebene01::8,  477.842,  -613.933,  -53.666
