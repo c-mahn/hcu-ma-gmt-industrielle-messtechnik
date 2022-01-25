@@ -136,7 +136,7 @@ if __name__ == '__main__':
     drehung_totalstation1 = avg_mirror1[0] - avg_imu1[0]
     drehung_totalstation2 = avg_imu2[0] - avg_mirror2[0]
     innenwinkel = 2*np.pi - innenwinkel_imu - drehung_totalstation1 - drehung_totalstation2
-    summe = innenwinkel_imu+drehung_totalstation1+drehung_totalstation2+innenwinkel
+    summe = innenwinkel_imu+drehung_totalstation1+drehung_totalstation2+(2*np.pi-difference[2])
     if(verbose):
         print(f"[Debug] Innenwinkel (IMU): {(innenwinkel_imu/np.pi*200):.5f} gon")
         print(f"[Debug] Innenwinkel (Totalstation1): {(drehung_totalstation1/np.pi*200):.5f} gon")
