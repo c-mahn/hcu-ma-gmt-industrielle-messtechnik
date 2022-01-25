@@ -23,8 +23,7 @@ import os
 # -----------------------------------------------------------------------------
 # Debugging-Settings
 
-verbose = True  # Shows more debugging information
-
+verbose = False  # Shows more debugging information
 
 # Functions
 # -----------------------------------------------------------------------------
@@ -38,6 +37,7 @@ verbose = True  # Shows more debugging information
 # -----------------------------------------------------------------------------
 
 if __name__ == '__main__':
+    print("Running spiegelwuerfel.py...")
     
     # Import der Messwerte des Neigungssensors
     file = open(os.path.join("data","imu_data_converted.txt"))
