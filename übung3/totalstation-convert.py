@@ -22,7 +22,7 @@ import os
 # -----------------------------------------------------------------------------
 # Debugging-Settings
 
-verbose = True  # Shows more debugging information
+verbose = False  # Shows more debugging information
 
 
 # Functions
@@ -37,6 +37,7 @@ verbose = True  # Shows more debugging information
 # -----------------------------------------------------------------------------
 
 if __name__ == '__main__':
+    print("Running totalstation-convert.py...")
 
     # Import der Messwerte des Tachymeters
     file = open(os.path.join("data","totalstation_data.txt"))
