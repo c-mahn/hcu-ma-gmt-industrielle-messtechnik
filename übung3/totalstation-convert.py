@@ -47,7 +47,9 @@ if __name__ == '__main__':
         totalstation_data[i] = e.strip().split(";")
         temp = []
         for j, f in enumerate(totalstation_data[i]):
-            if(j != 1):
+            if(j == 0 or j == 2):
+                temp.append(int(f))
+            elif(j != 1):
                 temp.append(float(f))
             else:
                 temp.append(f)
