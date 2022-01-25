@@ -31,6 +31,44 @@ verbose = True  # Shows more debugging information
 # Functions
 # -----------------------------------------------------------------------------
 
+def convert_data(input_filename, output_filename, Hz):
+    """
+    This function converts files formating for later use.
+
+    Args:
+        input_filename ([string]): [Defines the filename the data is in]
+        output_filename ([string]): [Defines the filename for saving the data]
+        Hz ([int]): [describes the datarate, by with the first line will be
+                    calculated]
+    """
+    
+    # Import der Messwerte
+    file = open(os.path.join("data", input_filename))
+    data = file.readlines()
+    file.close()
+    data.pop(0)
+    for i, e in enumerate(data):
+        if(e[0] != "/"):
+            data[i] = e.strip().split(",")
+            temp = []
+            for j, f in enumerate(data[i]):
+                if(j == 0):
+                    temp.append(int(f)/int(Hz))  # Berechnung der Timestamps
+                else:
+                    temp.append(float(f))
+            data[i] = temp
+
+    # Export der konvertierten Messwerte
+    file = open(os.path.join("data", output_filename),f"w")
+    for i in data:
+        for j, e in enumerate(i):
+            if(j == 0):
+                file.writelines(f"{e}")
+            else:
+                file.writelines(f"; {e}")
+        file.writelines(f"\n")
+    file.close()
+
 
 # Classes
 # -----------------------------------------------------------------------------
@@ -41,29 +79,11 @@ verbose = True  # Shows more debugging information
 
 if __name__ == '__main__':
     print("Runnung schwingungsanalyse_prepare_data.py...")
-
-    # Import der Messwerte von "Schwingungsanalyse_50Hz_PtoP_0.1.txt"
-    file = open(os.path.join("data","Schwingungsanalyse_50Hz_PtoP_0.1.txt"))
-    data = file.readlines()
-    file.close()
-    data.pop(0)
-    for i, e in enumerate(data):
-        data[i] = e.strip().split(",")
-        temp = []
-        for j, f in enumerate(data[i]):
-            if(j == 0):
-                temp.append(int(f))
-            else:
-                temp.append(float(f))
-        data[i] = temp
-
-    # Export der konvertierten Messwerte von "Schwingungsanalyse_50Hz_PtoP_0.1.txt"
-    file = open(os.path.join("data","totalstation_data_converted.txt"),f"w")
-    for i in totalstation_data:
-        for j, e in enumerate(i):
-            if(j == 0):
-                file.writelines(f"{e}")
-            else:
-                file.writelines(f"; {e}")
-        file.writelines(f"\n")
-    file.close()
+    
+    convert_data("Schwingungsanalyse_50Hz_PtoP_0.1.txt", "Schwingungsanalyse_01.txt", 50)
+    convert_data("Schwingungsanalyse_100Hz_PtoP_0.1.txt", "Schwingungsanalyse_02.txt", 100)
+    convert_data("Schwingungsanalyse_100Hz_PtoP_0.5.txt", "Schwingungsanalyse_03.txt", 100)
+    convert_data("Schwingungsanalyse_100Hz_PtoP_1.0.txt", "Schwingungsanalyse_04.txt", 100)
+    # convert_data("Schwingungsanalyse_Cloud_PtoP-0.5_LtoL-0.5.txt", "Schwingungsanalyse_05.txt", 1)
+    # convert_data("Schwingungsanalyse_Cloud_PtoP-2.0_LtoL-2.0.txt", "Schwingungsanalyse_06.txt", 1)
+    # convert_data("Schwingungsanalyse_Cloud_PtoP-5.0_LtoL-5.0.txt", "Schwingungsanalyse_07.txt", 1)
