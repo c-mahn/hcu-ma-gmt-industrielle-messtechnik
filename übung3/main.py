@@ -1,4 +1,4 @@
-# Auto Jumpcutter
+# Main-Script
 # #############################################################################
 
 # This python script automatically launches all other python scripts in the
