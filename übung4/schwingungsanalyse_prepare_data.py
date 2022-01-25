@@ -1,7 +1,8 @@
 # Schwingungsanalyse
 # #############################################################################
 
-# This python script calculates the frequency of the occilation.
+# This python script prepares the data for the main python script for
+# calculation of the frequencies of the occilations.
 
 # Authors:
 # Joshua Wolf
@@ -27,8 +28,10 @@ import os
 # Classes
 # -----------------------------------------------------------------------------
 
+
 # Beginning of the Programm
 # -----------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    pass
+    print("Runnung schwingungsanalyse_prepare_data.py...")
+    
