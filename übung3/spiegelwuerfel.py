@@ -122,3 +122,19 @@ if __name__ == '__main__':
     print(f"Innenwinkel (Totalstation2): {(drehung_totalstation2/np.pi*200):.5f} gon")
     innenwinkel = 2*np.pi - innenwinkel_imu - drehung_totalstation1 - drehung_totalstation2
     print(f"Innenwinkel: {(innenwinkel/np.pi*200):.5f} gon")
+
+    # Export results
+    file = open(os.path.join("data","results.txt"),f"w")
+    file.writelines(f"Result\n")
+    file.writelines(f"------\n\n")
+    file.writelines(f"Rotation of the mirror (Roll, Pitch, Yaw): {differencegon}\n\n")
+    file.writelines(f"Other Values:\n")
+    file.writelines(f"ori1IMU: {ori1IMU}\n")
+    file.writelines(f"ori2IMU: {ori2IMU}\n")
+    file.writelines(f"avg_imu1: {avg_imu1}\n")
+    file.writelines(f"avg_imu2: {avg_imu2}\n")
+    file.writelines(f"avg_mirror1: {avg_mirror1}\n")
+    file.writelines(f"avg_mirror2: {avg_mirror2}\n")
+    file.writelines(f"ori1mirror: {ori1mirror}\n")
+    file.writelines(f"ori2mirror: {ori2mirror}\n")
+    file.close()
