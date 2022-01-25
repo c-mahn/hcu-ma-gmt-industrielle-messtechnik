@@ -251,7 +251,7 @@ def cross_correlation(x_red, y_red):
 # -----------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    print("Runnung schwingungsanalyse_main.py...")
+    print("Running schwingungsanalyse_main.py...")
     
     for i in range(4):
         i += 1

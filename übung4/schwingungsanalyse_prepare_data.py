@@ -78,7 +78,7 @@ def convert_data(input_filename, output_filename, Hz):
 # -----------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    print("Runnung schwingungsanalyse_prepare_data.py...")
+    print("Running schwingungsanalyse_prepare_data.py...")
     
     convert_data("Schwingungsanalyse_50Hz_PtoP_0.1.txt", "Schwingungsanalyse_01.txt", 50)
     convert_data("Schwingungsanalyse_100Hz_PtoP_0.1.txt", "Schwingungsanalyse_02.txt", 100)
