@@ -30,6 +30,14 @@ import os
 from scipy.fft import fft, fftfreq
 from scipy import signal
 
+
+# -----------------------------------------------------------------------------
+# Settings
+
+verbose = False  # Shows more debugging information
+fix_steigung = True # Disregards permanent sensor changes
+
+
 # Functions
 # -----------------------------------------------------------------------------
 
@@ -57,7 +65,7 @@ def run_analysis(input_file):
         datenreihen[0].append(i[0])
         datenreihen[1].append(i[1])
         datenreihen[2].append(i[2])
-        datenreihen[2].append(i[3])
+        datenreihen[3].append(i[3])
     datenreihen_ohne_zeit = datenreihen[1:4]
     print("")
     plot_werte(datenreihen_ohne_zeit, ["Sensor 1", "Sensor 2", "Sensor 3"])
@@ -93,6 +101,12 @@ def run_analysis(input_file):
     plot_werte([datenreihen[1], linearisierung[0]], ["Sensor 1", "Linearisierung"])
     plot_werte([datenreihen[2], linearisierung[1]], ["Sensor 2", "Linearisierung"])
     plot_werte([datenreihen[3], linearisierung[2]], ["Sensor 3", "Linearisierung"])
+
+    # Wenn Steigung nicht bereinigt werden soll
+    if(fix_steigung):
+        steigung_1 = 0
+        steigung_2 = 0
+        steigung_3 = 0
 
     # Bereinigung des Trends aller Sensorreihen
     datenreihen_ohne_trend = [[], [], []]
