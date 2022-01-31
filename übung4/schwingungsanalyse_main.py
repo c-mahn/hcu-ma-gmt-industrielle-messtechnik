@@ -35,7 +35,7 @@ from scipy import signal
 # Settings
 
 verbose = False  # Shows more debugging information
-fix_steigung = True # Disregards permanent sensor changes
+fix_steigung = False # Disregards permanent sensor changes
 
 
 # Functions
@@ -124,7 +124,7 @@ def run_analysis(input_file):
     plot_werte(datenreihen_ohne_trend, ["Sensor 1 (ohne Trend)", "Sensor 2 (ohne Trend)", "Sensor 3 (ohne Trend)"])
 
     # Low-Pass-Filterung der Sensorreihen
-    low_pass_strength = 500
+    low_pass_strength = 3
     datenreihen_low_pass = []
     for i, e in enumerate(datenreihen_ohne_trend):
         print(f"[{i+1}/{len(datenreihen_ohne_trend)}] Low-Pass-Filterung (Strength {low_pass_strength})...", end="\r")
@@ -152,8 +152,8 @@ def run_analysis(input_file):
 
     # Weitere Informationen:
     # https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html
-    sample_frequenz = 1/10
-    N = 36286*2
+    sample_frequenz = datenreihen[0][2] - datenreihen[0][1]
+    N = len(datenreihen[0])*2
     print(f"[{1}/{len(datenreihen_ohne_trend)}] Fast-Fourier-Transformation...", end="\r")
     yf_1 = fft(datenreihen_low_pass[0])
     xf_1 = fftfreq(len(datenreihen_low_pass[0]), 1/sample_frequenz)
@@ -166,17 +166,17 @@ def run_analysis(input_file):
     print("")
     # Plot der Fourier-Transformation
     plt.plot(xf_1, 2.0/N * np.abs(yf_1[0:N//2]))
-    plt.xlim(0, 0.0001)
+    # plt.xlim(0, 0.0001)
     plt.grid()
     plt.show()
 
     plt.plot(xf_2, 2.0/N * np.abs(yf_2[0:N//2]))
-    plt.xlim(0, 0.0001)
+    # plt.xlim(0, 0.0001)
     plt.grid()
     plt.show()
 
     plt.plot(xf_3, 2.0/N * np.abs(yf_3[0:N//2]))
-    plt.xlim(0, 0.0001)
+    # plt.xlim(0, 0.0001)
     plt.grid()
     plt.show()
 
