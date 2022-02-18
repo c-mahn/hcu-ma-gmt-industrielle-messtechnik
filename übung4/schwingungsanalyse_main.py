@@ -36,7 +36,7 @@ from scipy import signal
 
 verbose = True  # Shows more debugging information
 fix_steigung = False  # Disregards permanent sensor changes
-show_graphs = False  # If disabled, the Plots will not be shown.
+show_graphs = True  # If disabled, the Plots will not be shown.
 
 
 # Functions
@@ -139,7 +139,7 @@ def run_analysis(input_file):
         plot_xyzt(datenreihen_ohne_trend, datenreihen[0], f'Messreihe "{input_file}" (ohne Trend)')
 
     # Low-Pass-Filterung der Sensorreihen
-    low_pass_strength = 3
+    low_pass_strength = 20
     datenreihen_low_pass = []
     for i, e in enumerate(datenreihen_ohne_trend):
         if(verbose):
