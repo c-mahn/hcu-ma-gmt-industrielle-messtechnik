@@ -36,7 +36,7 @@ from scipy import signal
 
 verbose = True  # Shows more debugging information
 fix_steigung = False  # Disregards permanent sensor changes
-show_graphs = False  # If disabled, the Plots will not be shown.
+show_graphs = True  # If disabled, the Plots will not be shown.
 
 
 # Functions
@@ -74,7 +74,7 @@ def run_analysis(input_file):
     if(verbose):
         print("")
     if(show_graphs):
-        plot_xyzt(datenreihen_ohne_zeit, datenreihen[0], f'Messreihe "{input_file}"')
+        plot_xyzs(datenreihen_ohne_zeit, f'Messreihe "{input_file}"')
     
     # Berechnung der linearen Regression von Sensor 1
     x = np.array(datenreihen[0])
@@ -108,9 +108,9 @@ def run_analysis(input_file):
         linearisierung[2].append(i*steigung_3+offset_3)
     # Plot der linearen Regression
     if(show_graphs):
-        plot_werte_t([datenreihen[1], linearisierung[0]], datenreihen[0], ["X", "Linearisierung"])
-        plot_werte_t([datenreihen[2], linearisierung[1]], datenreihen[0], ["Y", "Linearisierung"])
-        plot_werte_t([datenreihen[3], linearisierung[2]], datenreihen[0], ["Z", "Linearisierung"])
+        plot_werte_s([datenreihen[1], linearisierung[0]], ["X", "Linearisierung"])
+        plot_werte_s([datenreihen[2], linearisierung[1]], ["Y", "Linearisierung"])
+        plot_werte_s([datenreihen[3], linearisierung[2]], ["Z", "Linearisierung"])
 
     # Wenn Steigung nicht bereinigt werden soll
     if(fix_steigung):
@@ -136,7 +136,7 @@ def run_analysis(input_file):
         print("")
     # Plot der vom Trend bereinigten Sensorreihen
     if(show_graphs):
-        plot_xyzt(datenreihen_ohne_trend, datenreihen[0], f'Messreihe "{input_file}" (ohne Trend)')
+        plot_xyzs(datenreihen_ohne_trend, f'Messreihe "{input_file}" (ohne Trend)')
 
     # Low-Pass-Filterung der Sensorreihen
     low_pass_strength = 20
@@ -149,7 +149,7 @@ def run_analysis(input_file):
         print("")
     # Plot der low-pass Sensorreihen
     if(show_graphs):
-        plot_xyzt(datenreihen_low_pass, datenreihen[0], f'Messreihe "{input_file}" (mit Low-Pass-Filter)')
+        plot_xyzs(datenreihen_low_pass, f'Messreihe "{input_file}" (mit Low-Pass-Filter)')
 
     # Hoch-Pass-Filterung der Sensorreihen
     datenreihen_hoch_pass = [[], [], []]
@@ -169,7 +169,7 @@ def run_analysis(input_file):
         print("")
     # Plot der hoch-pass Sensorreihen
     if(show_graphs):
-        plot_xyzt(datenreihen_hoch_pass, datenreihen[0], f'Messreihe "{input_file}" (mit Hoch-Pass-Filter)')
+        plot_xyzs(datenreihen_hoch_pass, f'Messreihe "{input_file}" (mit Hoch-Pass-Filter)')
 
     # Fourier-Transformation
 
@@ -239,40 +239,40 @@ def plot_werte(datenreihen, name=["Messwerte"]):
     plt.show()
 
 
-def plot_werte_t(datenreihen, zeit, name=["Messwerte"]):
+def plot_werte_s(datenreihen, name=["Messwerte"]):
     """
-    Diese Funktion plottet Werte an eine Zeitachse.
+    Diese Funktion plottet Werte als Samples.
 
     Args:
-        datenreihen ([type]): Datenreihen zum Plotten
-        zeit ([type]): Eine Liste mit der Angabe der Zeitintervalle.
+        datenreihen ([type]): Datenreihen zum Plotten.
         name (list, optional): Angaben zur Beschriftung. Defaults to ["Messwerte"].
     """
     for i, datenreihe in enumerate(datenreihen):
+        zeit = range(len(datenreihe))
         plt.plot(zeit, datenreihe)
     plt.legend(name)
     plt.grid()
-    plt.xlabel("Zeit [s]")
+    plt.xlabel("Sample [1]")
     plt.ylabel("Koordinate [mm]")
     plt.title(name[0])
     plt.tight_layout()
     plt.show()
 
 
-def plot_xyzt(datenreihen, zeit, name="Messwerte"):
+def plot_xyzs(datenreihen, name="Messwerte"):
     """
     Diese Funktion nimmt genau drei Datenreihen und plottet diese in ein Diagramm.
 
     Args:
         datenreihen ([list]): Drei Datenreihen zum Plotten.
-        zeit ([list]): Eine Liste mit der Angabe der Zeitintervalle.
         name (list, optional): Dies ist der Titel. Defaults to "Messwerte".
     """
     for i, datenreihe in enumerate(datenreihen):
+        zeit = range(len(datenreihe))
         plt.plot(zeit, datenreihe)
     plt.legend(["x", "y", "z"])
     plt.grid()
-    plt.xlabel("Zeit [s]")
+    plt.xlabel("Sample [1]")
     plt.ylabel("Koordinate [mm]")
     plt.title(name)
     plt.tight_layout()
