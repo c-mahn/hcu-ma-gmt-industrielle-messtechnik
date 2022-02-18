@@ -1,0 +1,46 @@
+Running schwingungsanalyse_prepare_data.py...
+[1999/1999] Done  
+[1999/1999] Done  
+[461/461] Done  
+[199/199] Done  
+Running schwingungsanalyse_main.py...
+-------------- BEGIN OF CALCULATION --------------
+[3/3] Einlesen von "Schwingungsanalyse_01.txt"
+[X] Trend: (-0.0002709987)x + (+6569.459627)
+[Y] Trend: (-0.0004513340)x + (+5397.770085)
+[Z] Trend: (0.0107116515)x + (-1968.825583)
+[3/3] Trendbereinigung
+[3/3] Low-Pass-Filterung (Strength 20)
+[3/3] Hoch-Pass-Filterung
+[3/3] Fast-Fourier-Transformation
+--------------- END OF CALCULATION ---------------
+-------------- BEGIN OF CALCULATION --------------
+[3/3] Einlesen von "Schwingungsanalyse_02.txt"
+[X] Trend: (-0.0014347184)x + (+6569.468714)
+[Y] Trend: (-0.0007563310)x + (+5397.776381)
+[Z] Trend: (0.0300467824)x + (-1968.840557)
+[3/3] Trendbereinigung
+[3/3] Low-Pass-Filterung (Strength 20)
+[3/3] Hoch-Pass-Filterung
+[3/3] Fast-Fourier-Transformation
+--------------- END OF CALCULATION ---------------
+-------------- BEGIN OF CALCULATION --------------
+[3/3] Einlesen von "Schwingungsanalyse_03.txt"
+[X] Trend: (-500.3156528231)x + (+7578.761349)
+[Y] Trend: (-58.6293216941)x + (+5517.734297)
+[Z] Trend: (0.9394244217)x + (-1960.876859)
+[3/3] Trendbereinigung
+[3/3] Low-Pass-Filterung (Strength 20)
+[3/3] Hoch-Pass-Filterung
+[3/3] Fast-Fourier-Transformation
+--------------- END OF CALCULATION ---------------
+-------------- BEGIN OF CALCULATION --------------
+[3/3] Einlesen von "Schwingungsanalyse_04.txt"
+[X] Trend: (-0.0084126694)x + (+6569.455060)
+[Y] Trend: (-0.0001049185)x + (+5397.756563)
+[Z] Trend: (0.0193018121)x + (-1968.584213)
+[3/3] Trendbereinigung
+[3/3] Low-Pass-Filterung (Strength 20)
+[3/3] Hoch-Pass-Filterung
+[3/3] Fast-Fourier-Transformation
+--------------- END OF CALCULATION --------------- 
