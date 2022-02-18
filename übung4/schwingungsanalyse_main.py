@@ -36,7 +36,7 @@ from scipy import signal
 
 verbose = True  # Shows more debugging information
 fix_steigung = False  # Disregards permanent sensor changes
-show_graphs = True  # If disabled, the Plots will not be shown.
+show_graphs = False  # If disabled, the Plots will not be shown.
 
 
 # Functions
@@ -196,16 +196,28 @@ def run_analysis(input_file):
         plt.plot(xf_1, 2.0/N * np.abs(yf_1[0:N//2]))
         # plt.xlim(0, 0.0001)
         plt.grid()
+        plt.xlabel("Frequenz [s/Sample]")
+        plt.ylabel("Amplitude [1]")
+        plt.title("Fast-Fourier-Transformation (X-Achse)")
+        plt.tight_layout()
         plt.show()
 
         plt.plot(xf_2, 2.0/N * np.abs(yf_2[0:N//2]))
         # plt.xlim(0, 0.0001)
         plt.grid()
+        plt.xlabel("Frequenz [s/Sample]")
+        plt.ylabel("Amplitude [1]")
+        plt.title("Fast-Fourier-Transformation (Y-Achse)")
+        plt.tight_layout()
         plt.show()
 
         plt.plot(xf_3, 2.0/N * np.abs(yf_3[0:N//2]))
         # plt.xlim(0, 0.0001)
         plt.grid()
+        plt.xlabel("Frequenz [s/Sample]")
+        plt.ylabel("Amplitude [1]")
+        plt.title("Fast-Fourier-Transformation (Z-Achse)")
+        plt.tight_layout()
         plt.show()
         
     if(verbose):
