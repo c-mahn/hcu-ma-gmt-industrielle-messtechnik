@@ -36,7 +36,7 @@ from scipy import signal
 
 verbose = True  # Shows more debugging information
 fix_steigung = False  # Disregards permanent sensor changes
-show_graphs = True  # If disabled, the Plots will not be shown.
+show_graphs = False  # If disabled, the Plots will not be shown.
 
 
 # Functions
