@@ -68,7 +68,7 @@ def run_analysis(input_file):
         datenreihen[3].append(i[3])
     datenreihen_ohne_zeit = datenreihen[1:4]
     print("")
-    plot_werte(datenreihen_ohne_zeit, ["Sensor 1", "Sensor 2", "Sensor 3"])
+    plot_xyzt(datenreihen_ohne_zeit, f'Messreihe "{input_file}"')
     
     # Berechnung der linearen Regression von Sensor 1
     x = np.array(datenreihen[0])
@@ -98,9 +98,9 @@ def run_analysis(input_file):
         linearisierung[1].append(i*steigung_2+offset_2)
         linearisierung[2].append(i*steigung_3+offset_3)
     # Plot der linearen Regression
-    plot_werte([datenreihen[1], linearisierung[0]], ["Sensor 1", "Linearisierung"])
-    plot_werte([datenreihen[2], linearisierung[1]], ["Sensor 2", "Linearisierung"])
-    plot_werte([datenreihen[3], linearisierung[2]], ["Sensor 3", "Linearisierung"])
+    plot_werte([datenreihen[1], linearisierung[0]], ["X", "Linearisierung"])
+    plot_werte([datenreihen[2], linearisierung[1]], ["Y", "Linearisierung"])
+    plot_werte([datenreihen[3], linearisierung[2]], ["Z", "Linearisierung"])
 
     # Wenn Steigung nicht bereinigt werden soll
     if(fix_steigung):
@@ -121,7 +121,7 @@ def run_analysis(input_file):
         datenreihen_ohne_trend[2].append(e - (steigung_3*(datenreihen[0][i])+offset_3))
     print("")
     # Plot der vom Trend bereinigten Sensorreihen
-    plot_werte(datenreihen_ohne_trend, ["Sensor 1 (ohne Trend)", "Sensor 2 (ohne Trend)", "Sensor 3 (ohne Trend)"])
+    plot_xyzt(datenreihen_ohne_trend, f'Messreihe "{input_file}" (ohne Trend)')
 
     # Low-Pass-Filterung der Sensorreihen
     low_pass_strength = 3
@@ -131,7 +131,7 @@ def run_analysis(input_file):
         datenreihen_low_pass.append(low_pass_filter(e, low_pass_strength))
     print("")
     # Plot der low-pass Sensorreihen
-    plot_werte(datenreihen_low_pass, ["Sensor 1 (mit Low-Pass-Filter)", "Sensor 2 (mit Low-Pass-Filter)", "Sensor 3 (mit Low-Pass-Filter)"])
+    plot_xyzt(datenreihen_low_pass, f'Messreihe "{input_file}" (mit Low-Pass-Filter)')
 
     # Hoch-Pass-Filterung der Sensorreihen
     datenreihen_hoch_pass = [[], [], []]
@@ -146,7 +146,7 @@ def run_analysis(input_file):
         datenreihen_hoch_pass[2].append(datenreihen_ohne_trend[2][i] - e)
     print("")
     # Plot der hoch-pass Sensorreihen
-    plot_werte(datenreihen_hoch_pass, ["Sensor 1 (mit Hoch-Pass-Filter)", "Sensor 2 (mit Hoch-Pass-Filter)", "Sensor 3 (mit Hoch-Pass-Filter)"])
+    plot_xyzt(datenreihen_hoch_pass, f'Messreihe "{input_file}" (mit Hoch-Pass-Filter)')
 
     # Fourier-Transformation
 
@@ -193,6 +193,25 @@ def plot_werte(datenreihen, name=["Messwerte"]):
     plt.xlabel("")
     plt.ylabel("")
     plt.title(name[0])
+    plt.show()
+
+
+def plot_xyzt(datenreihen, name="Messwerte"):
+    """
+    Diese Funktion nimmt genau drei Datenreihen und plottet diese in ein Diagramm.
+
+    Args:
+        datenreihen ([list]): Drei Datenreihen zum Plotten.
+        name (list, optional): Dies ist der Titel. Defaults to "Messwerte".
+    """
+    for i, datenreihe in enumerate(datenreihen):
+        zeit = range(len(datenreihe))
+        plt.plot(zeit, datenreihe)
+    plt.legend(["x", "y", "z"])
+    plt.grid()
+    plt.xlabel("")
+    plt.ylabel("")
+    plt.title(name)
     plt.show()
 
 
