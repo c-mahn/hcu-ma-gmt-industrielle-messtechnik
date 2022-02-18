@@ -48,6 +48,8 @@ def convert_data(input_filename, output_filename, Hz):
     file.close()
     data.pop(0)
     for i, e in enumerate(data):
+        if(verbose):
+            print(f"[{i+1}/{len(data)}] Import", end="\r")
         if(e[0] != "/"):
             data[i] = e.strip().split(",")
             temp = []
@@ -60,14 +62,18 @@ def convert_data(input_filename, output_filename, Hz):
 
     # Export der konvertierten Messwerte
     file = open(os.path.join("data", output_filename),f"w")
-    for i in data:
-        for j, e in enumerate(i):
+    for i, e in enumerate(data):
+        if(verbose):
+            print(f"[{i+1}/{len(data)}] Export", end="\r")
+        for j, f in enumerate(e):
             if(j == 0):
-                file.writelines(f"{e}")
+                file.writelines(f"{f}")
             else:
-                file.writelines(f"; {e}")
+                file.writelines(f"; {f}")
         file.writelines(f"\n")
     file.close()
+    if(verbose):
+        print(f"[{i+1}/{len(data)}] Done  ")
 
 
 # Classes

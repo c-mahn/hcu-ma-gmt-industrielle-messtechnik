@@ -34,32 +34,36 @@ from scipy import signal
 # -----------------------------------------------------------------------------
 # Settings
 
-verbose = False  # Shows more debugging information
-fix_steigung = False # Disregards permanent sensor changes
+verbose = True  # Shows more debugging information
+fix_steigung = False  # Disregards permanent sensor changes
+show_graphs = True  # If disabled, the Plots will not be shown.
 
 
 # Functions
 # -----------------------------------------------------------------------------
 
 def run_analysis(input_file):
+        
+    if(verbose):
+        print(14*"-", "BEGIN OF CALCULATION", 14*"-")
     
-
     # Einlesen der Daten
-    print(f"[{1}/{1}] Einlesen der Daten...", end="\r")
+    if(verbose):
+        print(f'[{1}/{3}] Einlesen von "{input_file}"', end="\r")
     with open(os.path.join("data", input_file), "r") as f:
         data = f.readlines()
-    print("")
     
     # Datenbereinigung
-    print(f"[{1}/{1}] Datenbereinigung...", end="\r")
+    if(verbose):
+        print(f'[{2}/{3}] Einlesen von "{input_file}"', end="\r")
     for i, e in enumerate(data):
         data[i] = e.split(";")
         for j, e in enumerate(data[i]):
             data[i][j] = float(e.strip())
-    print("")
 
     # Umwandeln in Datenreihen
-    print(f"[{1}/{1}] Datenkonvertierung...", end="\r")
+    if(verbose):
+        print(f'[{3}/{3}] Einlesen von "{input_file}"', end="\r")
     datenreihen = [[], [], [], []]
     for i in data:
         datenreihen[0].append(i[0])
@@ -67,29 +71,34 @@ def run_analysis(input_file):
         datenreihen[2].append(i[2])
         datenreihen[3].append(i[3])
     datenreihen_ohne_zeit = datenreihen[1:4]
-    print("")
-    plot_xyzt(datenreihen_ohne_zeit, f'Messreihe "{input_file}"')
+    if(verbose):
+        print("")
+    if(show_graphs):
+        plot_xyzt(datenreihen_ohne_zeit, datenreihen[0], f'Messreihe "{input_file}"')
     
     # Berechnung der linearen Regression von Sensor 1
     x = np.array(datenreihen[0])
     y = np.array(datenreihen[1])
     steigung_1 = (len(x) * np.sum(x*y) - np.sum(x) * np.sum(y)) / (len(x)*np.sum(x*x) - np.sum(x) ** 2)
     offset_1 = (np.sum(y) - steigung_1 *np.sum(x)) / len(x)
-    print(f'[Sensor 1] Trend: ({steigung_1:.10f})x + ({offset_1:+.6f})')
+    if(verbose):
+        print(f'[X] Trend: ({steigung_1:.10f})x + ({offset_1:+.6f})')
     
     # Berechnung der linearen Regression von Sensor 2
     x = np.array(datenreihen[0])
     y = np.array(datenreihen[2])
     steigung_2 = (len(x) * np.sum(x*y) - np.sum(x) * np.sum(y)) / (len(x)*np.sum(x*x) - np.sum(x) ** 2)
     offset_2 = (np.sum(y) - steigung_2 *np.sum(x)) / len(x)
-    print(f'[Sensor 2] Trend: ({steigung_2:.10f})x + ({offset_2:+.6f})')
+    if(verbose):
+        print(f'[Y] Trend: ({steigung_2:.10f})x + ({offset_2:+.6f})')
     
     # Berechnung der linearen Regression von Sensor 3
     x = np.array(datenreihen[0])
     y = np.array(datenreihen[3])
     steigung_3 = (len(x) * np.sum(x*y) - np.sum(x) * np.sum(y)) / (len(x)*np.sum(x*x) - np.sum(x) ** 2)
     offset_3 = (np.sum(y) - steigung_3 *np.sum(x)) / len(x)
-    print(f'[Sensor 2] Trend: ({steigung_3:.10f})x + ({offset_3:+.6f})')
+    if(verbose):
+        print(f'[Z] Trend: ({steigung_3:.10f})x + ({offset_3:+.6f})')
 
     # Erstellung Lineare Regression zum Plotten (Plot-Punkte)
     linearisierung = [[], [], []]
@@ -98,9 +107,10 @@ def run_analysis(input_file):
         linearisierung[1].append(i*steigung_2+offset_2)
         linearisierung[2].append(i*steigung_3+offset_3)
     # Plot der linearen Regression
-    plot_werte([datenreihen[1], linearisierung[0]], ["X", "Linearisierung"])
-    plot_werte([datenreihen[2], linearisierung[1]], ["Y", "Linearisierung"])
-    plot_werte([datenreihen[3], linearisierung[2]], ["Z", "Linearisierung"])
+    if(show_graphs):
+        plot_werte_t([datenreihen[1], linearisierung[0]], datenreihen[0], ["X", "Linearisierung"])
+        plot_werte_t([datenreihen[2], linearisierung[1]], datenreihen[0], ["Y", "Linearisierung"])
+        plot_werte_t([datenreihen[3], linearisierung[2]], datenreihen[0], ["Z", "Linearisierung"])
 
     # Wenn Steigung nicht bereinigt werden soll
     if(fix_steigung):
@@ -110,43 +120,56 @@ def run_analysis(input_file):
 
     # Bereinigung des Trends aller Sensorreihen
     datenreihen_ohne_trend = [[], [], []]
-    print(f"[{1}/{len(datenreihen_ohne_trend)}] Bereinigung des Trends...", end="\r")
+    if(verbose):
+        print(f"[{1}/{len(datenreihen_ohne_trend)}] Trendbereinigung", end="\r")
     for i, e in enumerate(datenreihen[1]):
         datenreihen_ohne_trend[0].append(e - (steigung_1*(datenreihen[0][i])+offset_1))
-    print(f"[{2}/{len(datenreihen_ohne_trend)}] Bereinigung des Trends...", end="\r")
+    if(verbose):
+        print(f"[{2}/{len(datenreihen_ohne_trend)}] Trendbereinigung", end="\r")
     for i, e in enumerate(datenreihen[2]):
         datenreihen_ohne_trend[1].append(e - (steigung_2*(datenreihen[0][i])+offset_2))
-    print(f"[{3}/{len(datenreihen_ohne_trend)}] Bereinigung des Trends...", end="\r")
+    if(verbose):
+        print(f"[{3}/{len(datenreihen_ohne_trend)}] Trendbereinigung", end="\r")
     for i, e in enumerate(datenreihen[3]):
         datenreihen_ohne_trend[2].append(e - (steigung_3*(datenreihen[0][i])+offset_3))
-    print("")
+    if(verbose):
+        print("")
     # Plot der vom Trend bereinigten Sensorreihen
-    plot_xyzt(datenreihen_ohne_trend, f'Messreihe "{input_file}" (ohne Trend)')
+    if(show_graphs):
+        plot_xyzt(datenreihen_ohne_trend, datenreihen[0], f'Messreihe "{input_file}" (ohne Trend)')
 
     # Low-Pass-Filterung der Sensorreihen
     low_pass_strength = 3
     datenreihen_low_pass = []
     for i, e in enumerate(datenreihen_ohne_trend):
-        print(f"[{i+1}/{len(datenreihen_ohne_trend)}] Low-Pass-Filterung (Strength {low_pass_strength})...", end="\r")
+        if(verbose):
+            print(f"[{i+1}/{len(datenreihen_ohne_trend)}] Low-Pass-Filterung (Strength {low_pass_strength})", end="\r")
         datenreihen_low_pass.append(low_pass_filter(e, low_pass_strength))
-    print("")
+    if(verbose):
+        print("")
     # Plot der low-pass Sensorreihen
-    plot_xyzt(datenreihen_low_pass, f'Messreihe "{input_file}" (mit Low-Pass-Filter)')
+    if(show_graphs):
+        plot_xyzt(datenreihen_low_pass, datenreihen[0], f'Messreihe "{input_file}" (mit Low-Pass-Filter)')
 
     # Hoch-Pass-Filterung der Sensorreihen
     datenreihen_hoch_pass = [[], [], []]
-    print(f"[{1}/{len(datenreihen_hoch_pass)}] Hoch-Pass-Filterung...", end="\r")
+    if(verbose):
+        print(f"[{1}/{len(datenreihen_hoch_pass)}] Hoch-Pass-Filterung", end="\r")
     for i, e in enumerate(datenreihen_low_pass[0]):
         datenreihen_hoch_pass[0].append(datenreihen_ohne_trend[0][i] - e)
-    print(f"[{2}/{len(datenreihen_hoch_pass)}] Hoch-Pass-Filterung...", end="\r")
+    if(verbose):
+        print(f"[{2}/{len(datenreihen_hoch_pass)}] Hoch-Pass-Filterung", end="\r")
     for i, e in enumerate(datenreihen_low_pass[1]):
         datenreihen_hoch_pass[1].append(datenreihen_ohne_trend[1][i] - e)
-    print(f"[{3}/{len(datenreihen_hoch_pass)}] Hoch-Pass-Filterung...", end="\r")
+    if(verbose):
+        print(f"[{3}/{len(datenreihen_hoch_pass)}] Hoch-Pass-Filterung", end="\r")
     for i, e in enumerate(datenreihen_low_pass[2]):
         datenreihen_hoch_pass[2].append(datenreihen_ohne_trend[2][i] - e)
-    print("")
+    if(verbose):
+        print("")
     # Plot der hoch-pass Sensorreihen
-    plot_xyzt(datenreihen_hoch_pass, f'Messreihe "{input_file}" (mit Hoch-Pass-Filter)')
+    if(show_graphs):
+        plot_xyzt(datenreihen_hoch_pass, datenreihen[0], f'Messreihe "{input_file}" (mit Hoch-Pass-Filter)')
 
     # Fourier-Transformation
 
@@ -154,31 +177,39 @@ def run_analysis(input_file):
     # https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html
     sample_frequenz = datenreihen[0][2] - datenreihen[0][1]
     N = len(datenreihen[0])*2
-    print(f"[{1}/{len(datenreihen_ohne_trend)}] Fast-Fourier-Transformation...", end="\r")
+    if(verbose):
+        print(f"[{1}/{len(datenreihen_ohne_trend)}] Fast-Fourier-Transformation", end="\r")
     yf_1 = fft(datenreihen_low_pass[0])
     xf_1 = fftfreq(len(datenreihen_low_pass[0]), 1/sample_frequenz)
-    print(f"[{2}/{len(datenreihen_ohne_trend)}] Fast-Fourier-Transformation...", end="\r")
+    if(verbose):
+        print(f"[{2}/{len(datenreihen_ohne_trend)}] Fast-Fourier-Transformation", end="\r")
     yf_2 = fft(datenreihen_low_pass[1])
     xf_2 = fftfreq(len(datenreihen_low_pass[1]), 1/sample_frequenz)
-    print(f"[{3}/{len(datenreihen_ohne_trend)}] Fast-Fourier-Transformation...", end="\r")
+    if(verbose):
+        print(f"[{3}/{len(datenreihen_ohne_trend)}] Fast-Fourier-Transformation", end="\r")
     yf_3 = fft(datenreihen_low_pass[2])
     xf_3 = fftfreq(len(datenreihen_low_pass[2]), 1/sample_frequenz)
-    print("")
+    if(verbose):
+        print("")
     # Plot der Fourier-Transformation
-    plt.plot(xf_1, 2.0/N * np.abs(yf_1[0:N//2]))
-    # plt.xlim(0, 0.0001)
-    plt.grid()
-    plt.show()
+    if(show_graphs):
+        plt.plot(xf_1, 2.0/N * np.abs(yf_1[0:N//2]))
+        # plt.xlim(0, 0.0001)
+        plt.grid()
+        plt.show()
 
-    plt.plot(xf_2, 2.0/N * np.abs(yf_2[0:N//2]))
-    # plt.xlim(0, 0.0001)
-    plt.grid()
-    plt.show()
+        plt.plot(xf_2, 2.0/N * np.abs(yf_2[0:N//2]))
+        # plt.xlim(0, 0.0001)
+        plt.grid()
+        plt.show()
 
-    plt.plot(xf_3, 2.0/N * np.abs(yf_3[0:N//2]))
-    # plt.xlim(0, 0.0001)
-    plt.grid()
-    plt.show()
+        plt.plot(xf_3, 2.0/N * np.abs(yf_3[0:N//2]))
+        # plt.xlim(0, 0.0001)
+        plt.grid()
+        plt.show()
+        
+    if(verbose):
+        print(15*"-", "END OF CALCULATION", 15*"-")
 
 
 def plot_werte(datenreihen, name=["Messwerte"]):
@@ -196,22 +227,43 @@ def plot_werte(datenreihen, name=["Messwerte"]):
     plt.show()
 
 
-def plot_xyzt(datenreihen, name="Messwerte"):
+def plot_werte_t(datenreihen, zeit, name=["Messwerte"]):
+    """
+    Diese Funktion plottet Werte an eine Zeitachse.
+
+    Args:
+        datenreihen ([type]): Datenreihen zum Plotten
+        zeit ([type]): Eine Liste mit der Angabe der Zeitintervalle.
+        name (list, optional): Angaben zur Beschriftung. Defaults to ["Messwerte"].
+    """
+    for i, datenreihe in enumerate(datenreihen):
+        plt.plot(zeit, datenreihe)
+    plt.legend(name)
+    plt.grid()
+    plt.xlabel("Zeit [s]")
+    plt.ylabel("Koordinate [mm]")
+    plt.title(name[0])
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_xyzt(datenreihen, zeit, name="Messwerte"):
     """
     Diese Funktion nimmt genau drei Datenreihen und plottet diese in ein Diagramm.
 
     Args:
         datenreihen ([list]): Drei Datenreihen zum Plotten.
+        zeit ([list]): Eine Liste mit der Angabe der Zeitintervalle.
         name (list, optional): Dies ist der Titel. Defaults to "Messwerte".
     """
     for i, datenreihe in enumerate(datenreihen):
-        zeit = range(len(datenreihe))
         plt.plot(zeit, datenreihe)
     plt.legend(["x", "y", "z"])
     plt.grid()
-    plt.xlabel("")
-    plt.ylabel("")
+    plt.xlabel("Zeit [s]")
+    plt.ylabel("Koordinate [mm]")
     plt.title(name)
+    plt.tight_layout()
     plt.show()
 
 
